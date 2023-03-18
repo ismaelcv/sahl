@@ -5,6 +5,11 @@
     upgrade: yes
     autoremove: yes
 
+- name: Add linuxadmin to sudoers
+  lineinfile:
+    path: /etc/sudoers
+    line: 'linuxadmin ALL=(ALL) NOPASSWD:ALL'
+
 - name: Install dependencies
   apt:
     name:

@@ -1,0 +1,63 @@
+---
+- name: Clone pyenv repository
+  git:
+    repo: https://github.com/pyenv/pyenv.git
+    dest: /home/{{ ubuntu_user }}/.pyenv
+
+- name: Clone pyenv-virtualenv repository
+  git:
+    repo: https://github.com/pyenv/pyenv-virtualenv.git
+    dest: /home/{{ ubuntu_user }}/.pyenv/plugins/pyenv-virtualenv
+
+
+- name: Change ownership of .pyenv directory
+  file:
+    path: /home/ubuntu/.pyenv
+    owner: "{{ ubuntu_user }}"
+    recurse: yes
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - make
+    - build-essential
+    - libssl-dev
+    - zlib1g-dev
+    - libbz2-dev
+    - libreadline-dev
+    - libsqlite3-dev
+    - wget
+    - curl
+    - llvm
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+    - libxml2-dev
+    - libxmlsec1-dev
+    - libffi-dev
+    - liblzma-dev
+
+
+- name: Add pyenv init lines
+  lineinfile:
+    path: "/home/{{ ubuntu_user }}/.zshrc"
+    line: "{{ item }}"
+    insertafter: EOF
+  with_items:
+    - 'eval "$(pyenv init --path)"'
+    - 'eval "$(pyenv init -)"'
+    - 'eval "$(pyenv virtualenv-init -)"'
+    - 'export PATH="$HOME/.pyenv/bin:$PATH"'
+    - 'eval "$(pyenv init -)"'
+    - 'eval "$(pyenv virtualenv-init -)"'
+    - 'export PIP_REQUIRE_VIRTUALENV=true'
+    - 'gpip() { PIP_REQUIRE_VIRTUALENV="" pip "$@"; }'
+    - 'gpip3() { PIP_REQUIRE_VIRTUALENV="" pip3 "$@"; }'
+
+

@@ -1,0 +1,42 @@
+---
+- name: Install zsh package
+  apt:
+    name: zsh
+    state: present
+
+- name: Check if Oh My Zsh is installed
+  stat:
+    path: "/home/{{ ubuntu_user }}/.oh-my-zsh"
+  register: zsh_folder
+
+- name: Install Oh My Zsh
+  shell: bash -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+  args:
+    chdir: /home/{{ ubuntu_user }}
+  environment:
+    ZSH: /home/{{ ubuntu_user }}/.oh-my-zsh
+  become: true
+  become_user: "{{ ubuntu_user }}"
+  become_method: sudo
+  when: not zsh_folder.stat.exists
+  register: install_zsh_result
+  changed_when: install_zsh_result.stdout_lines[-1] != "....is now installed!"
+
+- name: Set default shell to zsh for user ubuntu
+  become: true
+  user:
+    name: "{{ ubuntu_user }}"
+    shell: /usr/bin/zsh
+
+- name: Clone powerlevel10k repository
+  git:
+    repo: "https://github.com/romkatv/powerlevel10k.git"
+    dest: "/home/{{ ubuntu_user }}/.oh-my-zsh/themes/powerlevel10k"
+    depth: 1
+
+- name: Set powerlevel10k in ~/.zshrc
+  lineinfile:
+    path: "/home/{{ ubuntu_user }}/.zshrc"
+    regexp: '^ZSH_THEME='
+    line: "ZSH_THEME=powerlevel10k/powerlevel10k"
+    state: present

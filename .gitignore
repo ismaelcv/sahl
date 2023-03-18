@@ -1,0 +1,10 @@
+/files/docker_persistent_data/*
+!/files/docker_persistent_data/.gitkeep
+/hosts
+/files/fonts/*
+.DS_Store
+secret.yml
+/host_vars/
+!/host_vars/.gitkeep
+mountsraspi
+.fact_cache

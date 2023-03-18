@@ -1,0 +1,17 @@
+---
+- name: Update and upgrade packages 
+  apt:
+    update_cache: yes
+    upgrade: yes
+    autoremove: yes
+
+- name: Install dependencies
+  apt:
+    name:
+      - python3
+      - python3-pip
+    state: present
+
+
+- name: Install Poetry
+  shell: "curl -sSL https://install.python-poetry.org | python3 -"

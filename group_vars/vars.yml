@@ -1,0 +1,11 @@
+#
+# Misc
+#
+
+hostname: localhost
+ubuntu_user: ubuntu
+zsh_custom_dir: "{{ lookup('env', 'ZSH_CUSTOM') | default(ubuntu_user + '/.oh-my-zsh/custom') }}"
+timezone: Europe/Amsterdam
+keyboard_layout: us
+
+

@@ -62,3 +62,13 @@ ssh -i ~/.ssh/homeserver ismael@192.168.1.77
 
 Questions
 Whats the difference between roles and tasks?
+
+
+
+Useful commands for microk8s
+
+` Check the status of microk8s
+sudo microk8s status 
+
+Check nodes available
+`sudo microk8s kubectl get nodes 

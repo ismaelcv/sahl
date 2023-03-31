@@ -42,6 +42,10 @@
     - libxmlsec1-dev
     - libffi-dev
     - liblzma-dev
+    - ca-certificates
+    - gnupg
+    - lsb-release
+
 
 
 - name: Add pyenv init lines

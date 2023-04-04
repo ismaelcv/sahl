@@ -1,0 +1,28 @@
+
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+
+- name: Ensure snapd service is running and enabled
+  systemd:
+    name: snapd.service
+    state: started
+    enabled: yes
+
+- name: Install MicroK8s using snap
+  command: sudo snap install microk8s --classic
+
+- name: Create keyrings directory
+  file:
+    path: /etc/apt/keyrings
+    state: directory
+
+- name: Download Docker GPG key
+  get_url:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    dest: /etc/apt/keyrings/docker-archive-keyring.gpg
+    mode: '0644'
+    validate_certs: no
+

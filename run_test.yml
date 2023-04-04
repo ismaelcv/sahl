@@ -1,4 +1,3 @@
----
 # localhost: The WSL instance is running on the same
 - hosts: localhost
   become: yes
@@ -6,66 +5,7 @@
     - group_vars/vars.yml
 
   tasks:
-  - name: Create keyrings directory
-    file:
-      path: /etc/apt/keyrings
-      state: directory
-
-  - name: Download Docker GPG key
-    get_url:
-      url: https://download.docker.com/linux/ubuntu/gpg
-      dest: /etc/apt/keyrings/docker-archive-keyring.gpg
-      mode: '0644'
-      validate_certs: no
-
-  - name: Create sources.list.d directory
-    file:
-      path: /etc/apt/sources.list.d
-      state: directory
-
-  - name: Create docker.list file
-    file:
-      path: /etc/apt/sources.list.d/docker.list
-      state: touch
-
-  # - name: Add Docker repository to sources.list.d
-  #   lineinfile:
-  #     path: /etc/apt/sources.list.d/docker.list
-  #     line: 'deb [arch={{ ansible_architecture }} signed-by=/etc/apt/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable'
-  #     state: present
-  #     create: yes
-
-  # - name: Add Docker GPG key
-  #   shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-  # - name: Add Docker repository to sources.list
-  #   lineinfile:
-  #     path: /etc/apt/sources.list
-  #     line: "deb [trusted=yes] https://download.docker.com/linux/ubuntu jammy stable"
-      
-  # - name: Update package lists
-  #   apt:
-  #     update_cache: yes
-  #     upgrade: yes
-
-
-
-  # - name: Install Docker and Docker Compose
-  #   apt:
-  #     name:
-  #       - docker-ce=5:20.10.18~3-0~ubuntu-jammy      
-  #       - docker-ce-cli
-  #       - containerd.io
-  #       - docker-compose
-  #     state: present
-
-  - name: Add current user to docker group
+  - name: Create alias for microk8s.kubectl as kubectl
     become: true
-    user:
-      name: "{{ ubuntu_user }}"
-      groups: docker
-      append: yes
-
-  - name: Activate docker group membership
-    become: true
-    shell: newgrp docker
+    command: "snap alias microk8s.kubectl kubectl"
+    

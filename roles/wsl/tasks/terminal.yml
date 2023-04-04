@@ -40,3 +40,4 @@
     regexp: '^ZSH_THEME='
     line: "ZSH_THEME=powerlevel10k/powerlevel10k"
     state: present
+

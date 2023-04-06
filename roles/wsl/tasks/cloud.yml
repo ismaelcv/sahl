@@ -1,0 +1,33 @@
+---
+- name: Install Azure CLI and Terraform dependencies
+  apt:
+    name:
+      - curl
+      - apt-transport-https
+      - lsb-release
+      - gnupg
+      - unzip
+    state: present
+    update_cache: yes
+
+- name: Add Microsoft GPG key and repository
+  shell: |
+    curl -sL https://packages.microsoft.com/keys/microsoft.asc | \
+    gpg --dearmor | \
+    sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+    AZ_REPO=$(lsb_release -cs)
+    echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | \
+    sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+- name: Install Azure CLI
+  apt:
+    name: azure-cli
+    state: present
+    update_cache: yes
+
+- name: Install Terraform
+  shell: |
+    cd /tmp
+    curl -O https://releases.hashicorp.com/terraform/0.15.5/terraform_0.15.5_linux_amd64.zip
+    unzip terraform_0.15.5_linux_amd64.zip
+    sudo mv terraform /usr/local/bin/

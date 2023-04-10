@@ -16,6 +16,7 @@ The playbook is mostly being developed for personal use, so stuff is going to be
 2) Install Ansible 
 
 
+
 To verify whether pip is already installed for your preferred Python:
 ```
 python3 -m pip -V

@@ -2,6 +2,6 @@
 - include_tasks: essential.yml
 - include_tasks: terminal.yml
 - include_tasks: pyenv-venv.yml
-- include_tasks: k8.yml
+# - include_tasks: k8.yml
 - include_tasks: cloud.yml
 

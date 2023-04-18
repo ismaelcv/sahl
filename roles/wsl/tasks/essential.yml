@@ -1,4 +1,21 @@
 ---
+- name: Install chrony package
+  package:
+    name: chrony
+    state: present
+
+- name: Configure NTP servers
+  lineinfile:
+    path: /etc/chrony/chrony.conf
+    line: "server <ntp_server>"
+  vars:
+    ntp_server: "your.ntp.server"
+
+- name: Restart chrony service
+  service:
+    name: chrony
+    state: restarted
+3
 - name: Update and upgrade packages 
   apt:
     update_cache: yes
@@ -21,6 +38,7 @@
     state: present
   loop:
     - snapd
+    - curl
 
 
 # You need to do wsl --shutdown to restart the WSL instance

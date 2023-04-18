@@ -7,7 +7,7 @@ It assumes a fresh Ubuntu Server 20.04 install, access to a non-root user with s
 
 The playbook is mostly being developed for personal use, so stuff is going to be constantly changing and breaking. Use at your own risk and if you have any questions, feel free to contact me.
 
-
+ 
 <br>
 
 # Requirements - Assuming a fresh linux installation

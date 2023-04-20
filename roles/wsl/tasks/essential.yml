@@ -15,7 +15,7 @@
   service:
     name: chrony
     state: restarted
-3
+
 - name: Update and upgrade packages 
   apt:
     update_cache: yes

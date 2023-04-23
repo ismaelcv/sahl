@@ -39,6 +39,10 @@ sudo apt update
 sudo apt install ansible
 ```
 
+## Install the dependencies:
+
+ansible-galaxy install -r requirements.yml
+
 
 # Run ansible
 ```
@@ -48,8 +52,7 @@ ansible-playbook playbook.yml --ask-become
 
 After Ansible has installed all the tools, you will need to do the following:
 
-- `wsl --shutdown` in powershell to restart WSL with the new config
-- restart VS code
+
 - Check systemd is running with ` systemctl list-unit-files --type=service `
 - Check microk8s is running with `sudo microk8s status`
 - Set `Zsh` as default terminal in VS code :
@@ -66,3 +69,6 @@ Requirements
 - Ubuntu Server 20.04
 - Ansible >= 2.9
 - Python >= 3.8
+
+
+# minikube

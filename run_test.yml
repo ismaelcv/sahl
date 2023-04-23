@@ -5,7 +5,8 @@
     - group_vars/vars.yml
 
   tasks:
-  - name: Create alias for microk8s.kubectl as kubectl
-    become: true
-    command: "snap alias microk8s.kubectl kubectl"
-    
+  - name: Install poetry using pip
+    pip:
+      name: poetry
+      state: present
+

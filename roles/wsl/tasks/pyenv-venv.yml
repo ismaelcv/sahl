@@ -20,7 +20,29 @@
   apt:
     update_cache: yes
 
-
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - make
+    - libbz2-dev 
+    - libncurses-dev 
+    - libffi-dev
+    - libreadline-dev 
+    - libssl-dev
+    - build-essential
+    - zlib1g-dev 
+    - libsqlite3-dev
+    - wget
+    - curl
+    - llvm
+    - libncursesw5-dev
+    - xz-utils
+    - tk-dev
+    - libxml2-dev 
+    - libxmlsec1-dev 
+    - liblzma-dev
 
 
 - name: Add pyenv init lines
@@ -39,3 +61,11 @@
     - 'gpip() { PIP_REQUIRE_VIRTUALENV="" pip "$@"; }'
     - 'gpip3() { PIP_REQUIRE_VIRTUALENV="" pip3 "$@"; }'
 
+
+- name: Fix permissions for pyenv
+  file:
+    path: "/home/{{ ubuntu_user }}/.pyenv"
+    state: directory
+    owner: "{{ ubuntu_user }}"
+    group: "{{ ubuntu_user }}"
+    mode: '0755'

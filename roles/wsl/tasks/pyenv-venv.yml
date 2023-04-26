@@ -51,10 +51,8 @@
     line: "{{ item }}"
     insertafter: EOF
   with_items:
+     -'export PATH="$HOME/.pyenv/bin:$PATH"'
     - 'eval "$(pyenv init --path)"'
-    - 'eval "$(pyenv init -)"'
-    - 'eval "$(pyenv virtualenv-init -)"'
-    - 'export PATH="$HOME/.pyenv/bin:$PATH"'
     - 'eval "$(pyenv init -)"'
     - 'eval "$(pyenv virtualenv-init -)"'
     - 'export PIP_REQUIRE_VIRTUALENV=true'

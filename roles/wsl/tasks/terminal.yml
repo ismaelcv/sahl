@@ -41,3 +41,5 @@
     line: "ZSH_THEME=powerlevel10k/powerlevel10k"
     state: present
 
+- name: Download and install Fig
+  shell: curl -SsL https://fig.io/install.sh | bash

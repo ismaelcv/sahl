@@ -52,6 +52,7 @@
     insertafter: EOF
   with_items:
     - 'export PATH="$HOME/.pyenv/bin:$PATH"'
+    - 'export PATH=$PATH:$HOME/.local/bin'
     - 'eval "$(pyenv init --path)"'
     - 'eval "$(pyenv init -)"'
     - 'eval "$(pyenv virtualenv-init -)"'

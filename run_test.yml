@@ -4,9 +4,4 @@
   vars_files:
     - group_vars/vars.yml
 
-  tasks:
-  - name: Install poetry using pip
-    pip:
-      name: poetry
-      state: present
 

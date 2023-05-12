@@ -4,4 +4,26 @@
   vars_files:
     - group_vars/vars.yml
 
+  tasks:
+    - name: Download and install gcloud CLI
+      get_url:
+        url: "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-430.0.0-linux-x86_64.tar.gz"
+        dest: "/tmp/google-cloud-cli-430.0.0-linux-x86_64.tar.gz"
+      register: download_result
+      until: download_result is succeeded
+      retries: 3
+      delay: 5
+    - name: Extract gcloud CLI archive
+      unarchive:
+        src: "/tmp/google-cloud-cli-430.0.0-linux-x86_64.tar.gz"
+        dest: "/opt"
+        copy: no
+    - name: Run gcloud CLI setup script
+      command: "/opt/google-cloud-sdk/install.sh -q"
 
+    - name: Add gcloud to PATH
+      lineinfile:
+        path: /etc/profile
+        line: 'export PATH="$PATH:/usr/bin/google-cloud-sdk/bin"'
+        state: present
+        create: true

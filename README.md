@@ -72,3 +72,5 @@ Requirements
 
 
 # minikube
+
+#TODO: add minikube installation

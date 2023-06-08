@@ -1,7 +1,7 @@
 ---
 # localhost: The WSL instance is running on the same
 - hosts: localhost
-  become: yes
+  become: true
   vars_files:
     - group_vars/vars.yml
 
